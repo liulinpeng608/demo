@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzit.plateform.dao.ResourceDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.yzit.plateform.entity.Resource" >
+	<result column="id" property="id"/>
+	<result column="parent_id" property="parentId"/>
+	<result column="parent_ids" property="parentIds"/>
+	<result column="res_name" property="resName"/>
+	<result column="sorts" property="sorts"/>
+	<result column="url" property="url"/>
+	<result column="target" property="target"/>
+	<result column="icon" property="icon"/>
+	<result column="is_show" property="isShow"/>
+	<result column="permission" property="permission"/>
+	<result column="remarks" property="remarks"/>
+	<result column="del_flag" property="delFlag"/>
+	<result column="res_type" property="resType"/>
+
+</resultMap>
+
+       
+<!-- t_sys_resourse table all fields -->
+<sql id="Base_Column_List" >
+	 id,parent_id,parent_ids,res_name,sorts,url,target,icon,is_show,permission,remarks,del_flag,res_type
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+		<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+		<if test="parentId != null and parentId != ''" >
+	    and parent_id =  #{parentId}
+	</if>
+	 		<if test="parentIds != null and parentIds != '' and parentIds != ''" >
+	    and parent_ids =  #{parentIds}
+	</if>
+	 		<if test="resName != null and resName != '' and resName != ''" >
+	    and res_name =  #{resName}
+	</if>
+		<if test="sorts != null and sorts != ''" >
+	    and sorts =  #{sorts}
+	</if>
+	 		<if test="url != null and url != '' and url != ''" >
+	    and url =  #{url}
+	</if>
+	 		<if test="target != null and target != '' and target != ''" >
+	    and target =  #{target}
+	</if>
+	 		<if test="icon != null and icon != '' and icon != ''" >
+	    and icon =  #{icon}
+	</if>
+	 		<if test="isShow != null and isShow != '' and isShow != ''" >
+	    and is_show =  #{isShow}
+	</if>
+	 		<if test="permission != null and permission != '' and permission != ''" >
+	    and permission =  #{permission}
+	</if>
+	 		<if test="remarks != null and remarks != '' and remarks != ''" >
+	    and remarks =  #{remarks}
+	</if>
+	 		<if test="delFlag != null and delFlag != '' and delFlag != ''" >
+	    and del_flag =  #{delFlag}
+	</if>
+		<if test="resType != null and resType != ''" >
+	    and res_type =  #{resType}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="save" parameterType="com.yzit.plateform.entity.Resource" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_sys_resourse(id,parent_id,parent_ids,res_name,sorts,url,target,icon,is_show,permission,remarks,del_flag,res_type)
+ values(#{id},#{parentId},#{parentIds},#{resName},#{sorts},#{url},#{target},#{icon},#{isShow},#{permission},#{remarks},#{delFlag},#{resType})
+</insert>
+<!-- 插入记录 -->
+<insert id="saveBySelective" parameterType="com.yzit.plateform.entity.Resource" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_sys_resourse( 
+	<trim  suffixOverrides=","     prefix="(" suffix=")">
+	<if test="parentId != null  ">
+		parent_id,
+	</if>
+	<if test="parentIds != null  and parent_ids != '' ">
+		parent_ids,
+	</if>
+	<if test="resName != null  and res_name != '' ">
+		res_name,
+	</if>
+	<if test="sorts != null  ">
+		sorts,
+	</if>
+	<if test="url != null  and url != '' ">
+		url,
+	</if>
+	<if test="target != null  and target != '' ">
+		target,
+	</if>
+	<if test="icon != null  and icon != '' ">
+		icon,
+	</if>
+	<if test="isShow != null  and is_show != '' ">
+		is_show,
+	</if>
+	<if test="permission != null  and permission != '' ">
+		permission,
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks,
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag,
+	</if>
+	<if test="resType != null  ">
+		res_type,
+	</if>
+	</trim>)
+ values (	<trim  suffixOverrides=","  prefix="values(" suffix=")">>
+	<if test="parentId != null  ">
+		#{parentId},
+	</if>
+	<if test="parentIds != null  and parent_ids != '' ">
+		#{parentIds},
+	</if>
+	<if test="resName != null  and res_name != '' ">
+		#{resName},
+	</if>
+	<if test="sorts != null  ">
+		#{sorts},
+	</if>
+	<if test="url != null  and url != '' ">
+		#{url},
+	</if>
+	<if test="target != null  and target != '' ">
+		#{target},
+	</if>
+	<if test="icon != null  and icon != '' ">
+		#{icon},
+	</if>
+	<if test="isShow != null  and is_show != '' ">
+		#{isShow},
+	</if>
+	<if test="permission != null  and permission != '' ">
+		#{permission},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		#{delFlag},
+	</if>
+	<if test="resType != null  ">
+		#{resType},
+	</if>
+	</trim> )
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="com.yzit.plateform.entity.Resource" >
+  update t_sys_resourse set parent_id=#{parentId},parent_ids=#{parentIds},res_name=#{resName},sorts=#{sorts},url=#{url},target=#{target},icon=#{icon},is_show=#{isShow},permission=#{permission},remarks=#{remarks},del_flag=#{delFlag},res_type=#{resType} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="com.yzit.plateform.entity.Resource" >
+	update t_sys_resourse set 
+	<trim  suffixOverrides="," >
+	<if test="parentId != null  ">
+		parent_id=#{parentId},
+	</if>
+	<if test="parentIds != null  and parent_ids != '' ">
+		parent_ids=#{parentIds},
+	</if>
+	<if test="resName != null  and res_name != '' ">
+		res_name=#{resName},
+	</if>
+	<if test="sorts != null  ">
+		sorts=#{sorts},
+	</if>
+	<if test="url != null  and url != '' ">
+		url=#{url},
+	</if>
+	<if test="target != null  and target != '' ">
+		target=#{target},
+	</if>
+	<if test="icon != null  and icon != '' ">
+		icon=#{icon},
+	</if>
+	<if test="isShow != null  and is_show != '' ">
+		is_show=#{isShow},
+	</if>
+	<if test="permission != null  and permission != '' ">
+		permission=#{permission},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks=#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag=#{delFlag},
+	</if>
+	<if test="resType != null  ">
+		res_type=#{resType},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delById" parameterType="Object">
+	delete 	 from t_sys_resourse where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 系统菜单 -->
+<select id="findById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	select <include refid="Base_Column_List" /> 
+	 from t_sys_resourse where id = #{id}
+</select>
+
+<!-- 检索所有的记录 -->
+<select id="findAll"  resultMap="BaseResultMap" >
+	select 
+	<include refid="Base_Column_List"/>
+	from t_sys_resourse 
+</select>
+
+<!-- 系统菜单 列表总数-->
+<select id="findByCount" resultType="java.lang.Integer"  parameterType="com.yzit.plateform.entity.Resource">
+	select count(1) from t_sys_resourse 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+  	
+  	  	  	<!-- 查询系统菜单列表   -->
+<select id="findByList" resultMap="BaseResultMap"  parameterType="com.yzit.plateform.entity.Resource">
+	select  * from (
+		select * from (
+			select 
+				<include refid="Base_Column_List"/>,rownum rn
+				from t_sys_resourse 
+				<include refid="Example_Where_Clause"/>
+		)aaa where aaa.rn &lt;=#{endIndex}
+	
+	)ccc where ccc.rn >#{startIndex}
+
+</select>
+
+  	
+</mapper>   

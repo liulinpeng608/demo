@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+<!-- 扫描控制器类 -->
+	<!-- <context:component-scan base-package="com.viathink/**/web/controller/**" /> -->
+ <!-- - 3.扫描Controller
+ com.yzit.plateform.contrlller -后台的控制类
+ com.yzit.plateform.action  前台控制类
+  -->
+	<context:component-scan base-package="com.yzit.plateform.action"></context:component-scan>
+
+
+	<!-- 开启注解 -->
+	<!-- <context:annotation-config /> -->
+	<!-- 将需要的处理器     jackson操作  内部都会包含 -->
+  	<!-- 采用注解方式配置MVC -->
+	<mvc:annotation-driven  content-negotiation-manager="contentNegotiationManager">
+	</mvc:annotation-driven>
+	
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+    <property name="favorPathExtension" value="true" />
+    <property name="favorParameter" value="true" />
+    <property name="defaultContentType" value="text/html"/>
+    <property name="mediaTypes" >
+        <value>
+            json=application/json
+            xml=application/xml
+        </value>
+    </property>
+</bean>
+	
+	<!-- 配置静态资源 -->
+<!-- 	<mvc:resources location="/resources/" mapping="/res/**" /> -->
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/pageJsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- FreeMarker视图解析 如返回student,在这里配置后缀名ftl和视图解析器 -->
+	<bean id="freemarkerViewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+		<property name="cache" value="false" />
+		<property name="suffix" value=".ftl" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<!-- 将请求和会话属性作为变量暴露给FreeMarker模板使用。要做到这一点，可以设置exposeRequestAttributes或者exposeSessionAttributes为true -->
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<!-- 使用这些宏，必须设置FreeMarkerViewResolver的exposeMacroHelpers属性为true -->
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<!-- 将request作为参数 -->
+		<property name="requestContextAttribute" value="request" />
+		
+		<!-- 视图解析器顺序 -->
+		<property name="order" value="0" />
+	</bean>
+	
+	<!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/viewFtl/pms/" />
+		<property name="freemarkerVariables">
+			<map>
+<!--				<entry key="xml_escape" value-ref="fmXmlEscape" />-->
+			</map>
+		</property>
+		<!-- FreeMarker默认每隔5秒检查模板是否被更新，如果已经更新了，就会重新加载并分析模板。 但经常检查模板是否更新可能比较耗时。如果你的应用运行在生产模式下，而且你预期模板不会经常更新， 
+			则可以将更新的延迟时间延长至一个小时或者更久。 可以通过为freemarkerSettings属性设置template_update_delay达到这一目的 -->
+		<property name="freemarkerSettings">
+			<props>
+				<!-- <prop key="template_update_delay">3600</prop> -->
+				<prop key="tag_syntax">auto_detect</prop><!-- 设置标签类型 两种：[] 和 <> 。[] 这种标记解析要快些 -->
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="output_encoding">UTF-8</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="time_format">HH:mm:ss</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="number_format">#</prop><!-- 设置数字格式 以免出现 000.00 -->
+				<prop key="classic_compatible">true</prop><!-- 可以满足一般需要。默认情况变量为null则替换为空字符串，如果需要自定义，写上${empty!"EmptyValue 
+					of fbysss"}的形式即可 -->
+				<prop key="template_exception_handler">html_debug</prop><!-- ignore,debug,html_debug,rethrow -->
+			</props>
+		</property>
+		<!-- 一下语句可以也可以配置freemarkerSettings属性，代码更为简洁 -->
+	</bean>
+	
+	<!--  配置统一异常处理 -->
+</beans>

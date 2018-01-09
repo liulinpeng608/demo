@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzit.plateform.dao.GenTableDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.yzit.plateform.entity.GenTable" >
+	<result column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="comments" property="comments"/>
+	<result column="class_name" property="className"/>
+	<result column="parent_table" property="parentTable"/>
+	<result column="parent_table_fk" property="parentTableFk"/>
+	<result column="remarks" property="remarks"/>
+	<result column="del_flag" property="delFlag"/>
+
+</resultMap>
+
+       
+<!-- t_gen_table table all fields -->
+<sql id="Base_Column_List" >
+	 id,name,comments,class_name,parent_table,parent_table_fk,remarks,del_flag
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+		<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+	 		<if test="name != null and name != '' and name != ''" >
+	    and name =  #{name}
+	</if>
+	 		<if test="comments != null and comments != '' and comments != ''" >
+	    and comments =  #{comments}
+	</if>
+	 		<if test="className != null and className != '' and className != ''" >
+	    and class_name =  #{className}
+	</if>
+	 		<if test="parentTable != null and parentTable != '' and parentTable != ''" >
+	    and parent_table =  #{parentTable}
+	</if>
+	 		<if test="parentTableFk != null and parentTableFk != '' and parentTableFk != ''" >
+	    and parent_table_fk =  #{parentTableFk}
+	</if>
+	 		<if test="remarks != null and remarks != '' and remarks != ''" >
+	    and remarks =  #{remarks}
+	</if>
+	 		<if test="delFlag != null and delFlag != '' and delFlag != ''" >
+	    and del_flag =  #{delFlag}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="save" parameterType="com.yzit.plateform.entity.GenTable" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_gen_table(id,name,comments,class_name,parent_table,parent_table_fk,remarks,del_flag)
+ values(#{id},#{name},#{comments},#{className},#{parentTable},#{parentTableFk},#{remarks},#{delFlag})
+</insert>
+<!-- 插入记录 -->
+<insert id="saveBySelective" parameterType="com.yzit.plateform.entity.GenTable" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_gen_table( 
+	<trim  suffixOverrides=","     prefix="(" suffix=")">
+	<if test="name != null  and name != '' ">
+		name,
+	</if>
+	<if test="comments != null  and comments != '' ">
+		comments,
+	</if>
+	<if test="className != null  and class_name != '' ">
+		class_name,
+	</if>
+	<if test="parentTable != null  and parent_table != '' ">
+		parent_table,
+	</if>
+	<if test="parentTableFk != null  and parent_table_fk != '' ">
+		parent_table_fk,
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks,
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag,
+	</if>
+	</trim>)
+ values (	<trim  suffixOverrides=","  prefix="values(" suffix=")">>
+	<if test="name != null  and name != '' ">
+		#{name},
+	</if>
+	<if test="comments != null  and comments != '' ">
+		#{comments},
+	</if>
+	<if test="className != null  and class_name != '' ">
+		#{className},
+	</if>
+	<if test="parentTable != null  and parent_table != '' ">
+		#{parentTable},
+	</if>
+	<if test="parentTableFk != null  and parent_table_fk != '' ">
+		#{parentTableFk},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		#{delFlag},
+	</if>
+	</trim> )
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="com.yzit.plateform.entity.GenTable" >
+  update t_gen_table set name=#{name},comments=#{comments},class_name=#{className},parent_table=#{parentTable},parent_table_fk=#{parentTableFk},remarks=#{remarks},del_flag=#{delFlag} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="com.yzit.plateform.entity.GenTable" >
+	update t_gen_table set 
+	<trim  suffixOverrides="," >
+	<if test="name != null  and name != '' ">
+		name=#{name},
+	</if>
+	<if test="comments != null  and comments != '' ">
+		comments=#{comments},
+	</if>
+	<if test="className != null  and class_name != '' ">
+		class_name=#{className},
+	</if>
+	<if test="parentTable != null  and parent_table != '' ">
+		parent_table=#{parentTable},
+	</if>
+	<if test="parentTableFk != null  and parent_table_fk != '' ">
+		parent_table_fk=#{parentTableFk},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks=#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag=#{delFlag},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delById" parameterType="Object">
+	delete 	 from t_gen_table where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 数据库表 -->
+<select id="findById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	select <include refid="Base_Column_List" /> 
+	 from t_gen_table where id = #{id}
+</select>
+
+<!-- 检索所有的记录 -->
+<select id="findAll"  resultMap="BaseResultMap" >
+	select 
+	<include refid="Base_Column_List"/>
+	from t_gen_table 
+</select>
+
+<!-- 数据库表 列表总数-->
+<select id="findByCount" resultType="java.lang.Integer"  parameterType="com.yzit.plateform.entity.GenTable">
+	select count(1) from t_gen_table 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+  	  	<!-- 查询数据库表列表  -->
+<select id="findByList" resultMap="BaseResultMap"  parameterType="com.yzit.plateform.entity.GenTable">
+	select  * from (
+		select * from (
+			select 
+				<include refid="Base_Column_List"/>,rownum rn
+				from t_gen_table 
+				<include refid="Example_Where_Clause"/>
+		)aaa where aaa.rn &lt;=#{endIndex}
+	
+	)ccc where ccc.rn >#{startIndex}
+
+</select>
+
+  	
+</mapper>   

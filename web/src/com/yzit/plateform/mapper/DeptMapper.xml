@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzit.plateform.dao.DeptDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.yzit.plateform.entity.Dept" >
+	<result column="id" property="id"/>
+	<result column="parent_id" property="parentId"/>
+	<result column="parent_ids" property="parentIds"/>
+	<result column="name" property="name"/>
+	<result column="sorts" property="sorts"/>
+	<result column="area_id" property="areaId"/>
+	<result column="code" property="code"/>
+	<result column="type" property="type"/>
+	<result column="grade" property="grade"/>
+	<result column="address" property="address"/>
+	<result column="zip_code" property="zipCode"/>
+	<result column="master" property="master"/>
+	<result column="phone" property="phone"/>
+	<result column="fax" property="fax"/>
+	<result column="email" property="email"/>
+	<result column="useable" property="useable"/>
+	<result column="primary_person" property="primaryPerson"/>
+	<result column="deputy_person" property="deputyPerson"/>
+	<result column="remarks" property="remarks"/>
+	<result column="del_flag" property="delFlag"/>
+
+</resultMap>
+
+       
+<!-- t_sys_organ table all fields -->
+<sql id="Base_Column_List" >
+	 id,parent_id,parent_ids,name,sorts,area_id,code,type,grade,address,zip_code,master,phone,fax,email,useable,primary_person,deputy_person,remarks,del_flag
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+		<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+		<if test="parentId != null and parentId != ''" >
+	    and parent_id =  #{parentId}
+	</if>
+	 		<if test="parentIds != null and parentIds != '' and parentIds != ''" >
+	    and parent_ids =  #{parentIds}
+	</if>
+	 		<if test="name != null and name != '' and name != ''" >
+	    and name =  #{name}
+	</if>
+		<if test="sorts != null and sorts != ''" >
+	    and sorts =  #{sorts}
+	</if>
+		<if test="areaId != null and areaId != ''" >
+	    and area_id =  #{areaId}
+	</if>
+	 		<if test="code != null and code != '' and code != ''" >
+	    and code =  #{code}
+	</if>
+	 		<if test="type != null and type != '' and type != ''" >
+	    and type =  #{type}
+	</if>
+	 		<if test="grade != null and grade != '' and grade != ''" >
+	    and grade =  #{grade}
+	</if>
+	 		<if test="address != null and address != '' and address != ''" >
+	    and address =  #{address}
+	</if>
+	 		<if test="zipCode != null and zipCode != '' and zipCode != ''" >
+	    and zip_code =  #{zipCode}
+	</if>
+	 		<if test="master != null and master != '' and master != ''" >
+	    and master =  #{master}
+	</if>
+	 		<if test="phone != null and phone != '' and phone != ''" >
+	    and phone =  #{phone}
+	</if>
+	 		<if test="fax != null and fax != '' and fax != ''" >
+	    and fax =  #{fax}
+	</if>
+	 		<if test="email != null and email != '' and email != ''" >
+	    and email =  #{email}
+	</if>
+		<if test="useable != null and useable != ''" >
+	    and useable =  #{useable}
+	</if>
+	 		<if test="primaryPerson != null and primaryPerson != '' and primaryPerson != ''" >
+	    and primary_person =  #{primaryPerson}
+	</if>
+	 		<if test="deputyPerson != null and deputyPerson != '' and deputyPerson != ''" >
+	    and deputy_person =  #{deputyPerson}
+	</if>
+	 		<if test="remarks != null and remarks != '' and remarks != ''" >
+	    and remarks =  #{remarks}
+	</if>
+	 		<if test="delFlag != null and delFlag != '' and delFlag != ''" >
+	    and del_flag =  #{delFlag}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="save" parameterType="com.yzit.plateform.entity.Dept" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_sys_organ(id,parent_id,parent_ids,name,sorts,area_id,code,type,grade,address,zip_code,master,phone,fax,email,useable,primary_person,deputy_person,remarks,del_flag)
+ values(#{id},#{parentId},#{parentIds},#{name},#{sorts},#{areaId},#{code},#{type},#{grade},#{address},#{zipCode},#{master},#{phone},#{fax},#{email},#{useable},#{primaryPerson},#{deputyPerson},#{remarks},#{delFlag})
+</insert>
+<!-- 插入记录 -->
+<insert id="saveBySelective" parameterType="com.yzit.plateform.entity.Dept" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_sys_organ( 
+	<trim  suffixOverrides=","     prefix="(" suffix=")">
+	<if test="parentId != null  ">
+		parent_id,
+	</if>
+	<if test="parentIds != null  and parent_ids != '' ">
+		parent_ids,
+	</if>
+	<if test="name != null  and name != '' ">
+		name,
+	</if>
+	<if test="sorts != null  ">
+		sorts,
+	</if>
+	<if test="areaId != null  ">
+		area_id,
+	</if>
+	<if test="code != null  and code != '' ">
+		code,
+	</if>
+	<if test="type != null  and type != '' ">
+		type,
+	</if>
+	<if test="grade != null  and grade != '' ">
+		grade,
+	</if>
+	<if test="address != null  and address != '' ">
+		address,
+	</if>
+	<if test="zipCode != null  and zip_code != '' ">
+		zip_code,
+	</if>
+	<if test="master != null  and master != '' ">
+		master,
+	</if>
+	<if test="phone != null  and phone != '' ">
+		phone,
+	</if>
+	<if test="fax != null  and fax != '' ">
+		fax,
+	</if>
+	<if test="email != null  and email != '' ">
+		email,
+	</if>
+	<if test="useable != null  ">
+		useable,
+	</if>
+	<if test="primaryPerson != null  and primary_person != '' ">
+		primary_person,
+	</if>
+	<if test="deputyPerson != null  and deputy_person != '' ">
+		deputy_person,
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks,
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag,
+	</if>
+	</trim>)
+ values (	<trim  suffixOverrides=","  prefix="values(" suffix=")">>
+	<if test="parentId != null  ">
+		#{parentId},
+	</if>
+	<if test="parentIds != null  and parent_ids != '' ">
+		#{parentIds},
+	</if>
+	<if test="name != null  and name != '' ">
+		#{name},
+	</if>
+	<if test="sorts != null  ">
+		#{sorts},
+	</if>
+	<if test="areaId != null  ">
+		#{areaId},
+	</if>
+	<if test="code != null  and code != '' ">
+		#{code},
+	</if>
+	<if test="type != null  and type != '' ">
+		#{type},
+	</if>
+	<if test="grade != null  and grade != '' ">
+		#{grade},
+	</if>
+	<if test="address != null  and address != '' ">
+		#{address},
+	</if>
+	<if test="zipCode != null  and zip_code != '' ">
+		#{zipCode},
+	</if>
+	<if test="master != null  and master != '' ">
+		#{master},
+	</if>
+	<if test="phone != null  and phone != '' ">
+		#{phone},
+	</if>
+	<if test="fax != null  and fax != '' ">
+		#{fax},
+	</if>
+	<if test="email != null  and email != '' ">
+		#{email},
+	</if>
+	<if test="useable != null  ">
+		#{useable},
+	</if>
+	<if test="primaryPerson != null  and primary_person != '' ">
+		#{primaryPerson},
+	</if>
+	<if test="deputyPerson != null  and deputy_person != '' ">
+		#{deputyPerson},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		#{delFlag},
+	</if>
+	</trim> )
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="com.yzit.plateform.entity.Dept" >
+  update t_sys_organ set parent_id=#{parentId},parent_ids=#{parentIds},name=#{name},sorts=#{sorts},area_id=#{areaId},code=#{code},type=#{type},grade=#{grade},address=#{address},zip_code=#{zipCode},master=#{master},phone=#{phone},fax=#{fax},email=#{email},useable=#{useable},primary_person=#{primaryPerson},deputy_person=#{deputyPerson},remarks=#{remarks},del_flag=#{delFlag} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="com.yzit.plateform.entity.Dept" >
+	update t_sys_organ set 
+	<trim  suffixOverrides="," >
+	<if test="parentId != null  ">
+		parent_id=#{parentId},
+	</if>
+	<if test="parentIds != null  and parent_ids != '' ">
+		parent_ids=#{parentIds},
+	</if>
+	<if test="name != null  and name != '' ">
+		name=#{name},
+	</if>
+	<if test="sorts != null  ">
+		sorts=#{sorts},
+	</if>
+	<if test="areaId != null  ">
+		area_id=#{areaId},
+	</if>
+	<if test="code != null  and code != '' ">
+		code=#{code},
+	</if>
+	<if test="type != null  and type != '' ">
+		type=#{type},
+	</if>
+	<if test="grade != null  and grade != '' ">
+		grade=#{grade},
+	</if>
+	<if test="address != null  and address != '' ">
+		address=#{address},
+	</if>
+	<if test="zipCode != null  and zip_code != '' ">
+		zip_code=#{zipCode},
+	</if>
+	<if test="master != null  and master != '' ">
+		master=#{master},
+	</if>
+	<if test="phone != null  and phone != '' ">
+		phone=#{phone},
+	</if>
+	<if test="fax != null  and fax != '' ">
+		fax=#{fax},
+	</if>
+	<if test="email != null  and email != '' ">
+		email=#{email},
+	</if>
+	<if test="useable != null  ">
+		useable=#{useable},
+	</if>
+	<if test="primaryPerson != null  and primary_person != '' ">
+		primary_person=#{primaryPerson},
+	</if>
+	<if test="deputyPerson != null  and deputy_person != '' ">
+		deputy_person=#{deputyPerson},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks=#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag=#{delFlag},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delById" parameterType="Object">
+	delete 	 from t_sys_organ where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 组织结构 -->
+<select id="findById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	select <include refid="Base_Column_List" /> 
+	 from t_sys_organ where id = #{id}
+</select>
+
+<!-- 检索所有的记录 -->
+<select id="findAll"  resultMap="BaseResultMap" >
+	select 
+	<include refid="Base_Column_List"/>
+	from t_sys_organ 
+</select>
+
+
+<!-- 组织结构 列表总数-->
+<select id="findByCount" resultType="java.lang.Integer"  parameterType="com.yzit.plateform.entity.Dept">
+	select count(1) from t_sys_organ 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+
+<!-- 查询组织结构列表 -->
+<select id="findByList" resultMap="BaseResultMap"  parameterType="com.yzit.plateform.entity.Dept">
+	select  * from (
+		select * from (
+			select 
+				<include refid="Base_Column_List"/>,rownum rn
+				from t_sys_organ 
+				<include refid="Example_Where_Clause"/>
+		)aaa where aaa.rn &lt;=#{endIndex}
+	
+	)ccc where ccc.rn >#{startIndex}
+
+</select>
+
+  	
+</mapper>   

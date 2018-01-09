@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzit.plateform.dao.UserDao">
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap"
+		type="com.yzit.plateform.entity.User">
+		<result column="id" property="id" />
+		<result column="organ_id" property="organId" />
+		<result column="login_name" property="loginName" />
+		<result column="pwd" property="pwd" />
+		<result column="staff_no" property="staffNo" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="mobile" property="mobile" />
+		<result column="user_type" property="userType" />
+		<result column="photo" property="photo" />
+		<result column="login_ip" property="loginIp" />
+		<result column="login_date" property="loginDate" />
+		<result column="login_flag" property="loginFlag" />
+		<result column="remarks" property="remarks" />
+		<result column="del_flag" property="delFlag" />
+
+	</resultMap>
+
+
+	<!-- t_sys_user table all fields -->
+	<sql id="Base_Column_List">
+		id,organ_id,login_name,pwd,staff_no,name,email,phone,mobile,user_type,photo,login_ip,login_date,login_flag,remarks,del_flag
+	</sql>
+
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">and id = #{id}</if>
+			<if test="organId != null and organId != ''">
+				and organ_id = #{organId}
+			</if>
+			<if
+				test="loginName != null and loginName != '' and loginName != ''">
+				and login_name = #{loginName}
+			</if>
+			<if test="pwd != null and pwd != '' and pwd != ''">
+				and pwd = #{pwd}
+			</if>
+			<if
+				test="staffNo != null and staffNo != '' and staffNo != ''">
+				and staff_no = #{staffNo}
+			</if>
+			<if test="name != null and name != '' and name != ''">
+				and name = #{name}
+			</if>
+			<if test="email != null and email != '' and email != ''">
+				and email = #{email}
+			</if>
+			<if test="phone != null and phone != '' and phone != ''">
+				and phone = #{phone}
+			</if>
+			<if
+				test="mobile != null and mobile != '' and mobile != ''">
+				and mobile = #{mobile}
+			</if>
+			<if
+				test="userType != null and userType != '' and userType != ''">
+				and user_type = #{userType}
+			</if>
+			<if test="photo != null and photo != '' and photo != ''">
+				and photo = #{photo}
+			</if>
+			<if
+				test="loginIp != null and loginIp != '' and loginIp != ''">
+				and login_ip = #{loginIp}
+			</if>
+			<if test="loginDate != null and loginDate != ''">
+				and login_date = #{loginDate}
+			</if>
+			<if test="loginFlag != null and loginFlag != ''">
+				and login_flag = #{loginFlag}
+			</if>
+			<if
+				test="remarks != null and remarks != '' and remarks != ''">
+				and remarks = #{remarks}
+			</if>
+			<if
+				test="delFlag != null and delFlag != '' and delFlag != ''">
+				and del_flag = #{delFlag}
+			</if>
+		</trim>
+	</sql>
+
+
+	<!-- 插入记录 -->
+	<insert id="save" parameterType="com.yzit.plateform.entity.User">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		t_sys_user(id,organ_id,login_name,pwd,staff_no,name,email,phone,mobile,user_type,photo,login_ip,login_date,login_flag,remarks,del_flag)
+		values(#{id},#{organId},#{loginName},#{pwd},#{staffNo},#{name},#{email},#{phone},#{mobile},#{userType},#{photo},#{loginIp},#{loginDate},#{loginFlag},#{remarks},#{delFlag})
+	</insert>
+	<!-- 插入记录 -->
+	<insert id="saveBySelective"
+		parameterType="com.yzit.plateform.entity.User">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_sys_user(
+		<trim suffixOverrides="," prefix="(" suffix=")">
+			<if test="organId != null  ">organ_id,</if>
+			<if test="loginName != null  and login_name != '' ">
+				login_name,
+			</if>
+			<if test="pwd != null  and pwd != '' ">pwd,</if>
+			<if test="staffNo != null  and staff_no != '' ">
+				staff_no,
+			</if>
+			<if test="name != null  and name != '' ">name,</if>
+			<if test="email != null  and email != '' ">email,</if>
+			<if test="phone != null  and phone != '' ">phone,</if>
+			<if test="mobile != null  and mobile != '' ">mobile,</if>
+			<if test="userType != null  and user_type != '' ">
+				user_type,
+			</if>
+			<if test="photo != null  and photo != '' ">photo,</if>
+			<if test="loginIp != null  and login_ip != '' ">
+				login_ip,
+			</if>
+			<if test="loginDate != null  ">login_date,</if>
+			<if test="loginFlag != null  ">login_flag,</if>
+			<if test="remarks != null  and remarks != '' ">remarks,</if>
+			<if test="delFlag != null  and del_flag != '' ">
+				del_flag,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides="," prefix="values(" suffix=")">
+			>
+			<if test="organId != null  ">#{organId},</if>
+			<if test="loginName != null  and login_name != '' ">
+				#{loginName},
+			</if>
+			<if test="pwd != null  and pwd != '' ">#{pwd},</if>
+			<if test="staffNo != null  and staff_no != '' ">
+				#{staffNo},
+			</if>
+			<if test="name != null  and name != '' ">#{name},</if>
+			<if test="email != null  and email != '' ">#{email},</if>
+			<if test="phone != null  and phone != '' ">#{phone},</if>
+			<if test="mobile != null  and mobile != '' ">#{mobile},</if>
+			<if test="userType != null  and user_type != '' ">
+				#{userType},
+			</if>
+			<if test="photo != null  and photo != '' ">#{photo},</if>
+			<if test="loginIp != null  and login_ip != '' ">
+				#{loginIp},
+			</if>
+			<if test="loginDate != null  ">#{loginDate},</if>
+			<if test="loginFlag != null  ">#{loginFlag},</if>
+			<if test="remarks != null  and remarks != '' ">
+				#{remarks},
+			</if>
+			<if test="delFlag != null  and del_flag != '' ">
+				#{delFlag},
+			</if>
+		</trim>
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->
+	<update id="update"
+		parameterType="com.yzit.plateform.entity.User">
+		update t_sys_user set
+		organ_id=#{organId},login_name=#{loginName},pwd=#{pwd},staff_no=#{staffNo},name=#{name},email=#{email},phone=#{phone},mobile=#{mobile},user_type=#{userType},photo=#{photo},login_ip=#{loginIp},login_date=#{loginDate},login_flag=#{loginFlag},remarks=#{remarks},del_flag=#{delFlag}
+		where id=#{id}
+	</update>
+
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateBySelective"
+		parameterType="com.yzit.plateform.entity.User">
+		update t_sys_user set
+		<trim suffixOverrides=",">
+			<if test="organId != null  ">organ_id=#{organId},</if>
+			<if test="loginName != null  and login_name != '' ">
+				login_name=#{loginName},
+			</if>
+			<if test="pwd != null  and pwd != '' ">pwd=#{pwd},</if>
+			<if test="staffNo != null  and staff_no != '' ">
+				staff_no=#{staffNo},
+			</if>
+			<if test="name != null  and name != '' ">name=#{name},</if>
+			<if test="email != null  and email != '' ">
+				email=#{email},
+			</if>
+			<if test="phone != null  and phone != '' ">
+				phone=#{phone},
+			</if>
+			<if test="mobile != null  and mobile != '' ">
+				mobile=#{mobile},
+			</if>
+			<if test="userType != null  and user_type != '' ">
+				user_type=#{userType},
+			</if>
+			<if test="photo != null  and photo != '' ">
+				photo=#{photo},
+			</if>
+			<if test="loginIp != null  and login_ip != '' ">
+				login_ip=#{loginIp},
+			</if>
+			<if test="loginDate != null  ">login_date=#{loginDate},</if>
+			<if test="loginFlag != null  ">login_flag=#{loginFlag},</if>
+			<if test="remarks != null  and remarks != '' ">
+				remarks=#{remarks},
+			</if>
+			<if test="delFlag != null  and del_flag != '' ">
+				del_flag=#{delFlag},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delById" parameterType="Object">
+		delete from t_sys_user where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 登录用户 -->
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_user where id = #{id}
+	</select>
+
+	<!-- 检索所有的记录 -->
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_user
+	</select>
+
+	<!-- 登录用户 列表总数-->
+	<select id="findByCount" resultType="java.lang.Integer"
+		parameterType="com.yzit.plateform.entity.User">
+		select count(1) from t_sys_user
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询登录用户列表 -->
+	<select id="findByList" resultMap="BaseResultMap"
+		parameterType="com.yzit.plateform.entity.User">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_user
+		<include refid="Example_Where_Clause" />
+		limit #{startIndex},#{pageSize}
+	</select>
+	
+	
+	<select id="login" parameterType="com.yzit.plateform.entity.User" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_user
+			where  1=1 
+			and login_name = #{loginName}
+			and pwd = #{pwd}
+	</select>
+
+</mapper>

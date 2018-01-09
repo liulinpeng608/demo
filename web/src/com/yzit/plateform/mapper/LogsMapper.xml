@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzit.plateform.dao.LogsDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.yzit.plateform.entity.Logs" >
+	<result column="id" property="id"/>
+	<result column="types" property="types"/>
+	<result column="title" property="title"/>
+	<result column="create_by" property="createBy"/>
+	<result column="create_date" property="createDate"/>
+	<result column="remote_addr" property="remoteAddr"/>
+	<result column="user_agent" property="userAgent"/>
+	<result column="request_uri" property="requestUri"/>
+	<result column="method" property="method"/>
+	<result column="params" property="params"/>
+	<result column="exceptions" property="exceptions"/>
+
+</resultMap>
+
+       
+<!-- t_sys_log table all fields -->
+<sql id="Base_Column_List" >
+	 id,types,title,create_by,create_date,remote_addr,user_agent,request_uri,method,params,exceptions
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+		<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+	 		<if test="types != null and types != '' and types != ''" >
+	    and types =  #{types}
+	</if>
+	 		<if test="title != null and title != '' and title != ''" >
+	    and title =  #{title}
+	</if>
+		<if test="createBy != null and createBy != ''" >
+	    and create_by =  #{createBy}
+	</if>
+		<if test="createDate != null and createDate != ''" >
+	    and create_date =  #{createDate}
+	</if>
+	 		<if test="remoteAddr != null and remoteAddr != '' and remoteAddr != ''" >
+	    and remote_addr =  #{remoteAddr}
+	</if>
+	 		<if test="userAgent != null and userAgent != '' and userAgent != ''" >
+	    and user_agent =  #{userAgent}
+	</if>
+	 		<if test="requestUri != null and requestUri != '' and requestUri != ''" >
+	    and request_uri =  #{requestUri}
+	</if>
+	 		<if test="method != null and method != '' and method != ''" >
+	    and method =  #{method}
+	</if>
+		<if test="params != null and params != ''" >
+	    and params =  #{params}
+	</if>
+		<if test="exceptions != null and exceptions != ''" >
+	    and exceptions =  #{exceptions}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="save" parameterType="com.yzit.plateform.entity.Logs" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_sys_log(id,types,title,create_by,create_date,remote_addr,user_agent,request_uri,method,params,exceptions)
+ values(#{id},#{types},#{title},#{createBy},#{createDate},#{remoteAddr},#{userAgent},#{requestUri},#{method},#{params},#{exceptions})
+</insert>
+<!-- 插入记录 -->
+<insert id="saveBySelective" parameterType="com.yzit.plateform.entity.Logs" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_sys_log( 
+	<trim  suffixOverrides=","     prefix="(" suffix=")">
+	<if test="types != null  and types != '' ">
+		types,
+	</if>
+	<if test="title != null  and title != '' ">
+		title,
+	</if>
+	<if test="createBy != null  ">
+		create_by,
+	</if>
+	<if test="createDate != null  ">
+		create_date,
+	</if>
+	<if test="remoteAddr != null  and remote_addr != '' ">
+		remote_addr,
+	</if>
+	<if test="userAgent != null  and user_agent != '' ">
+		user_agent,
+	</if>
+	<if test="requestUri != null  and request_uri != '' ">
+		request_uri,
+	</if>
+	<if test="method != null  and method != '' ">
+		method,
+	</if>
+	<if test="params != null  ">
+		params,
+	</if>
+	<if test="exceptions != null  ">
+		exceptions,
+	</if>
+	</trim>)
+ values (	<trim  suffixOverrides=","  prefix="values(" suffix=")">>
+	<if test="types != null  and types != '' ">
+		#{types},
+	</if>
+	<if test="title != null  and title != '' ">
+		#{title},
+	</if>
+	<if test="createBy != null  ">
+		#{createBy},
+	</if>
+	<if test="createDate != null  ">
+		#{createDate},
+	</if>
+	<if test="remoteAddr != null  and remote_addr != '' ">
+		#{remoteAddr},
+	</if>
+	<if test="userAgent != null  and user_agent != '' ">
+		#{userAgent},
+	</if>
+	<if test="requestUri != null  and request_uri != '' ">
+		#{requestUri},
+	</if>
+	<if test="method != null  and method != '' ">
+		#{method},
+	</if>
+	<if test="params != null  ">
+		#{params},
+	</if>
+	<if test="exceptions != null  ">
+		#{exceptions},
+	</if>
+	</trim> )
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="com.yzit.plateform.entity.Logs" >
+  update t_sys_log set types=#{types},title=#{title},create_by=#{createBy},create_date=#{createDate},remote_addr=#{remoteAddr},user_agent=#{userAgent},request_uri=#{requestUri},method=#{method},params=#{params},exceptions=#{exceptions} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="com.yzit.plateform.entity.Logs" >
+	update t_sys_log set 
+	<trim  suffixOverrides="," >
+	<if test="types != null  and types != '' ">
+		types=#{types},
+	</if>
+	<if test="title != null  and title != '' ">
+		title=#{title},
+	</if>
+	<if test="createBy != null  ">
+		create_by=#{createBy},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="remoteAddr != null  and remote_addr != '' ">
+		remote_addr=#{remoteAddr},
+	</if>
+	<if test="userAgent != null  and user_agent != '' ">
+		user_agent=#{userAgent},
+	</if>
+	<if test="requestUri != null  and request_uri != '' ">
+		request_uri=#{requestUri},
+	</if>
+	<if test="method != null  and method != '' ">
+		method=#{method},
+	</if>
+	<if test="params != null  ">
+		params=#{params},
+	</if>
+	<if test="exceptions != null  ">
+		exceptions=#{exceptions},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delById" parameterType="Object">
+	delete 	 from t_sys_log where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 操作日志 -->
+<select id="findById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	select <include refid="Base_Column_List" /> 
+	 from t_sys_log where id = #{id}
+</select>
+
+<!-- 检索所有的记录 -->
+<select id="findAll"  resultMap="BaseResultMap" >
+	select 
+	<include refid="Base_Column_List"/>
+	from t_sys_log 
+</select>
+
+<!-- 操作日志 列表总数-->
+<select id="findByCount" resultType="java.lang.Integer"  parameterType="com.yzit.plateform.entity.Logs">
+	select count(1) from t_sys_log 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+  	  	<!-- 查询操作日志列表  -->
+<select id="findByList" resultMap="BaseResultMap"  parameterType="com.yzit.plateform.entity.Logs">
+	select  * from (
+		select * from (
+			select 
+				<include refid="Base_Column_List"/>,rownum rn
+				from t_sys_log 
+				<include refid="Example_Where_Clause"/>
+		)aaa where aaa.rn &lt;=#{endIndex}
+	
+	)ccc where ccc.rn >#{startIndex}
+
+</select>
+  	
+  	
+</mapper>   

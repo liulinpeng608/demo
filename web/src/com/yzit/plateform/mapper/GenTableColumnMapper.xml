@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzit.plateform.dao.GenTableColumnDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.yzit.plateform.entity.GenTableColumn" >
+	<result column="id" property="id"/>
+	<result column="gen_table_id" property="genTableId"/>
+	<result column="name" property="name"/>
+	<result column="comments" property="comments"/>
+	<result column="jdbc_type" property="jdbcType"/>
+	<result column="java_type" property="javaType"/>
+	<result column="java_field" property="javaField"/>
+	<result column="is_pk" property="isPk"/>
+	<result column="is_null" property="isNull"/>
+	<result column="is_insert" property="isInsert"/>
+	<result column="is_edit" property="isEdit"/>
+	<result column="is_list" property="isList"/>
+	<result column="is_query" property="isQuery"/>
+	<result column="query_type" property="queryType"/>
+	<result column="show_type" property="showType"/>
+	<result column="dict_type" property="dictType"/>
+	<result column="settings" property="settings"/>
+	<result column="sorts" property="sorts"/>
+	<result column="remarks" property="remarks"/>
+	<result column="del_flag" property="delFlag"/>
+
+</resultMap>
+
+       
+<!-- t_gen_table_column table all fields -->
+<sql id="Base_Column_List" >
+	 id,gen_table_id,name,comments,jdbc_type,java_type,java_field,is_pk,is_null,is_insert,is_edit,is_list,is_query,query_type,show_type,dict_type,settings,sorts,remarks,del_flag
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+		<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+		<if test="genTableId != null and genTableId != ''" >
+	    and gen_table_id =  #{genTableId}
+	</if>
+	 		<if test="name != null and name != '' and name != ''" >
+	    and name =  #{name}
+	</if>
+	 		<if test="comments != null and comments != '' and comments != ''" >
+	    and comments =  #{comments}
+	</if>
+	 		<if test="jdbcType != null and jdbcType != '' and jdbcType != ''" >
+	    and jdbc_type =  #{jdbcType}
+	</if>
+	 		<if test="javaType != null and javaType != '' and javaType != ''" >
+	    and java_type =  #{javaType}
+	</if>
+	 		<if test="javaField != null and javaField != '' and javaField != ''" >
+	    and java_field =  #{javaField}
+	</if>
+	 		<if test="isPk != null and isPk != '' and isPk != ''" >
+	    and is_pk =  #{isPk}
+	</if>
+	 		<if test="isNull != null and isNull != '' and isNull != ''" >
+	    and is_null =  #{isNull}
+	</if>
+	 		<if test="isInsert != null and isInsert != '' and isInsert != ''" >
+	    and is_insert =  #{isInsert}
+	</if>
+	 		<if test="isEdit != null and isEdit != '' and isEdit != ''" >
+	    and is_edit =  #{isEdit}
+	</if>
+	 		<if test="isList != null and isList != '' and isList != ''" >
+	    and is_list =  #{isList}
+	</if>
+	 		<if test="isQuery != null and isQuery != '' and isQuery != ''" >
+	    and is_query =  #{isQuery}
+	</if>
+	 		<if test="queryType != null and queryType != '' and queryType != ''" >
+	    and query_type =  #{queryType}
+	</if>
+	 		<if test="showType != null and showType != '' and showType != ''" >
+	    and show_type =  #{showType}
+	</if>
+	 		<if test="dictType != null and dictType != '' and dictType != ''" >
+	    and dict_type =  #{dictType}
+	</if>
+	 		<if test="settings != null and settings != '' and settings != ''" >
+	    and settings =  #{settings}
+	</if>
+		<if test="sorts != null and sorts != ''" >
+	    and sorts =  #{sorts}
+	</if>
+	 		<if test="remarks != null and remarks != '' and remarks != ''" >
+	    and remarks =  #{remarks}
+	</if>
+	 		<if test="delFlag != null and delFlag != '' and delFlag != ''" >
+	    and del_flag =  #{delFlag}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="save" parameterType="com.yzit.plateform.entity.GenTableColumn" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_gen_table_column(id,gen_table_id,name,comments,jdbc_type,java_type,java_field,is_pk,is_null,is_insert,is_edit,is_list,is_query,query_type,show_type,dict_type,settings,sorts,remarks,del_flag)
+ values(#{id},#{genTableId},#{name},#{comments},#{jdbcType},#{javaType},#{javaField},#{isPk},#{isNull},#{isInsert},#{isEdit},#{isList},#{isQuery},#{queryType},#{showType},#{dictType},#{settings},#{sorts},#{remarks},#{delFlag})
+</insert>
+<!-- 插入记录 -->
+<insert id="saveBySelective" parameterType="com.yzit.plateform.entity.GenTableColumn" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_gen_table_column( 
+	<trim  suffixOverrides=","     prefix="(" suffix=")">
+	<if test="genTableId != null  ">
+		gen_table_id,
+	</if>
+	<if test="name != null  and name != '' ">
+		name,
+	</if>
+	<if test="comments != null  and comments != '' ">
+		comments,
+	</if>
+	<if test="jdbcType != null  and jdbc_type != '' ">
+		jdbc_type,
+	</if>
+	<if test="javaType != null  and java_type != '' ">
+		java_type,
+	</if>
+	<if test="javaField != null  and java_field != '' ">
+		java_field,
+	</if>
+	<if test="isPk != null  and is_pk != '' ">
+		is_pk,
+	</if>
+	<if test="isNull != null  and is_null != '' ">
+		is_null,
+	</if>
+	<if test="isInsert != null  and is_insert != '' ">
+		is_insert,
+	</if>
+	<if test="isEdit != null  and is_edit != '' ">
+		is_edit,
+	</if>
+	<if test="isList != null  and is_list != '' ">
+		is_list,
+	</if>
+	<if test="isQuery != null  and is_query != '' ">
+		is_query,
+	</if>
+	<if test="queryType != null  and query_type != '' ">
+		query_type,
+	</if>
+	<if test="showType != null  and show_type != '' ">
+		show_type,
+	</if>
+	<if test="dictType != null  and dict_type != '' ">
+		dict_type,
+	</if>
+	<if test="settings != null  and settings != '' ">
+		settings,
+	</if>
+	<if test="sorts != null  ">
+		sorts,
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks,
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag,
+	</if>
+	</trim>)
+ values (	<trim  suffixOverrides=","  prefix="values(" suffix=")">>
+	<if test="genTableId != null  ">
+		#{genTableId},
+	</if>
+	<if test="name != null  and name != '' ">
+		#{name},
+	</if>
+	<if test="comments != null  and comments != '' ">
+		#{comments},
+	</if>
+	<if test="jdbcType != null  and jdbc_type != '' ">
+		#{jdbcType},
+	</if>
+	<if test="javaType != null  and java_type != '' ">
+		#{javaType},
+	</if>
+	<if test="javaField != null  and java_field != '' ">
+		#{javaField},
+	</if>
+	<if test="isPk != null  and is_pk != '' ">
+		#{isPk},
+	</if>
+	<if test="isNull != null  and is_null != '' ">
+		#{isNull},
+	</if>
+	<if test="isInsert != null  and is_insert != '' ">
+		#{isInsert},
+	</if>
+	<if test="isEdit != null  and is_edit != '' ">
+		#{isEdit},
+	</if>
+	<if test="isList != null  and is_list != '' ">
+		#{isList},
+	</if>
+	<if test="isQuery != null  and is_query != '' ">
+		#{isQuery},
+	</if>
+	<if test="queryType != null  and query_type != '' ">
+		#{queryType},
+	</if>
+	<if test="showType != null  and show_type != '' ">
+		#{showType},
+	</if>
+	<if test="dictType != null  and dict_type != '' ">
+		#{dictType},
+	</if>
+	<if test="settings != null  and settings != '' ">
+		#{settings},
+	</if>
+	<if test="sorts != null  ">
+		#{sorts},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		#{delFlag},
+	</if>
+	</trim> )
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="com.yzit.plateform.entity.GenTableColumn" >
+  update t_gen_table_column set gen_table_id=#{genTableId},name=#{name},comments=#{comments},jdbc_type=#{jdbcType},java_type=#{javaType},java_field=#{javaField},is_pk=#{isPk},is_null=#{isNull},is_insert=#{isInsert},is_edit=#{isEdit},is_list=#{isList},is_query=#{isQuery},query_type=#{queryType},show_type=#{showType},dict_type=#{dictType},settings=#{settings},sorts=#{sorts},remarks=#{remarks},del_flag=#{delFlag} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="com.yzit.plateform.entity.GenTableColumn" >
+	update t_gen_table_column set 
+	<trim  suffixOverrides="," >
+	<if test="genTableId != null  ">
+		gen_table_id=#{genTableId},
+	</if>
+	<if test="name != null  and name != '' ">
+		name=#{name},
+	</if>
+	<if test="comments != null  and comments != '' ">
+		comments=#{comments},
+	</if>
+	<if test="jdbcType != null  and jdbc_type != '' ">
+		jdbc_type=#{jdbcType},
+	</if>
+	<if test="javaType != null  and java_type != '' ">
+		java_type=#{javaType},
+	</if>
+	<if test="javaField != null  and java_field != '' ">
+		java_field=#{javaField},
+	</if>
+	<if test="isPk != null  and is_pk != '' ">
+		is_pk=#{isPk},
+	</if>
+	<if test="isNull != null  and is_null != '' ">
+		is_null=#{isNull},
+	</if>
+	<if test="isInsert != null  and is_insert != '' ">
+		is_insert=#{isInsert},
+	</if>
+	<if test="isEdit != null  and is_edit != '' ">
+		is_edit=#{isEdit},
+	</if>
+	<if test="isList != null  and is_list != '' ">
+		is_list=#{isList},
+	</if>
+	<if test="isQuery != null  and is_query != '' ">
+		is_query=#{isQuery},
+	</if>
+	<if test="queryType != null  and query_type != '' ">
+		query_type=#{queryType},
+	</if>
+	<if test="showType != null  and show_type != '' ">
+		show_type=#{showType},
+	</if>
+	<if test="dictType != null  and dict_type != '' ">
+		dict_type=#{dictType},
+	</if>
+	<if test="settings != null  and settings != '' ">
+		settings=#{settings},
+	</if>
+	<if test="sorts != null  ">
+		sorts=#{sorts},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks=#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag=#{delFlag},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delById" parameterType="Object">
+	delete 	 from t_gen_table_column where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 数据库字典表 -->
+<select id="findById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	select <include refid="Base_Column_List" /> 
+	 from t_gen_table_column where id = #{id}
+</select>
+
+<!-- 检索所有的记录 -->
+<select id="findAll"  resultMap="BaseResultMap" >
+	select 
+	<include refid="Base_Column_List"/>
+	from t_gen_table_column 
+</select>
+
+<!-- 数据库字典表 列表总数-->
+<select id="findByCount" resultType="java.lang.Integer"  parameterType="com.yzit.plateform.entity.GenTableColumn">
+	select count(1) from t_gen_table_column 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+  	<!-- 查询数据库列表  -->
+<select id="findByList" resultMap="BaseResultMap"  parameterType="com.yzit.plateform.entity.GenTableColumn">
+	select  * from (
+		select * from (
+			select 
+				<include refid="Base_Column_List"/>,rownum rn
+				from t_gen_table_column 
+				<include refid="Example_Where_Clause"/>
+		)aaa where aaa.rn &lt;=#{endIndex}
+	
+	)ccc where ccc.rn >#{startIndex}
+
+</select>
+  	
+
+</mapper>   

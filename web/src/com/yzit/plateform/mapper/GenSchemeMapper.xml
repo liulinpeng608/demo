@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzit.plateform.dao.GenSchemeDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.yzit.plateform.entity.GenScheme" >
+	<result column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="category" property="category"/>
+	<result column="package_name" property="packageName"/>
+	<result column="module_name" property="moduleName"/>
+	<result column="sub_module_name" property="subModuleName"/>
+	<result column="function_name" property="functionName"/>
+	<result column="function_name_simple" property="functionNameSimple"/>
+	<result column="function_author" property="functionAuthor"/>
+	<result column="gen_table_id" property="genTableId"/>
+	<result column="remarks" property="remarks"/>
+	<result column="del_flag" property="delFlag"/>
+
+</resultMap>
+
+       
+<!-- t_gen_scheme table all fields -->
+<sql id="Base_Column_List" >
+	 id,name,category,package_name,module_name,sub_module_name,function_name,function_name_simple,function_author,gen_table_id,remarks,del_flag
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+		<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+	 		<if test="name != null and name != '' and name != ''" >
+	    and name =  #{name}
+	</if>
+	 		<if test="category != null and category != '' and category != ''" >
+	    and category =  #{category}
+	</if>
+	 		<if test="packageName != null and packageName != '' and packageName != ''" >
+	    and package_name =  #{packageName}
+	</if>
+	 		<if test="moduleName != null and moduleName != '' and moduleName != ''" >
+	    and module_name =  #{moduleName}
+	</if>
+	 		<if test="subModuleName != null and subModuleName != '' and subModuleName != ''" >
+	    and sub_module_name =  #{subModuleName}
+	</if>
+	 		<if test="functionName != null and functionName != '' and functionName != ''" >
+	    and function_name =  #{functionName}
+	</if>
+	 		<if test="functionNameSimple != null and functionNameSimple != '' and functionNameSimple != ''" >
+	    and function_name_simple =  #{functionNameSimple}
+	</if>
+	 		<if test="functionAuthor != null and functionAuthor != '' and functionAuthor != ''" >
+	    and function_author =  #{functionAuthor}
+	</if>
+	 		<if test="genTableId != null and genTableId != '' and genTableId != ''" >
+	    and gen_table_id =  #{genTableId}
+	</if>
+	 		<if test="remarks != null and remarks != '' and remarks != ''" >
+	    and remarks =  #{remarks}
+	</if>
+	 		<if test="delFlag != null and delFlag != '' and delFlag != ''" >
+	    and del_flag =  #{delFlag}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="save" parameterType="com.yzit.plateform.entity.GenScheme" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_gen_scheme(id,name,category,package_name,module_name,sub_module_name,function_name,function_name_simple,function_author,gen_table_id,remarks,del_flag)
+ values(#{id},#{name},#{category},#{packageName},#{moduleName},#{subModuleName},#{functionName},#{functionNameSimple},#{functionAuthor},#{genTableId},#{remarks},#{delFlag})
+</insert>
+<!-- 插入记录 -->
+<insert id="saveBySelective" parameterType="com.yzit.plateform.entity.GenScheme" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into t_gen_scheme( 
+	<trim  suffixOverrides=","     prefix="(" suffix=")">
+	<if test="name != null  and name != '' ">
+		name,
+	</if>
+	<if test="category != null  and category != '' ">
+		category,
+	</if>
+	<if test="packageName != null  and package_name != '' ">
+		package_name,
+	</if>
+	<if test="moduleName != null  and module_name != '' ">
+		module_name,
+	</if>
+	<if test="subModuleName != null  and sub_module_name != '' ">
+		sub_module_name,
+	</if>
+	<if test="functionName != null  and function_name != '' ">
+		function_name,
+	</if>
+	<if test="functionNameSimple != null  and function_name_simple != '' ">
+		function_name_simple,
+	</if>
+	<if test="functionAuthor != null  and function_author != '' ">
+		function_author,
+	</if>
+	<if test="genTableId != null  and gen_table_id != '' ">
+		gen_table_id,
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks,
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag,
+	</if>
+	</trim>)
+ values (	<trim  suffixOverrides=","  prefix="values(" suffix=")">>
+	<if test="name != null  and name != '' ">
+		#{name},
+	</if>
+	<if test="category != null  and category != '' ">
+		#{category},
+	</if>
+	<if test="packageName != null  and package_name != '' ">
+		#{packageName},
+	</if>
+	<if test="moduleName != null  and module_name != '' ">
+		#{moduleName},
+	</if>
+	<if test="subModuleName != null  and sub_module_name != '' ">
+		#{subModuleName},
+	</if>
+	<if test="functionName != null  and function_name != '' ">
+		#{functionName},
+	</if>
+	<if test="functionNameSimple != null  and function_name_simple != '' ">
+		#{functionNameSimple},
+	</if>
+	<if test="functionAuthor != null  and function_author != '' ">
+		#{functionAuthor},
+	</if>
+	<if test="genTableId != null  and gen_table_id != '' ">
+		#{genTableId},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		#{delFlag},
+	</if>
+	</trim> )
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="com.yzit.plateform.entity.GenScheme" >
+  update t_gen_scheme set name=#{name},category=#{category},package_name=#{packageName},module_name=#{moduleName},sub_module_name=#{subModuleName},function_name=#{functionName},function_name_simple=#{functionNameSimple},function_author=#{functionAuthor},gen_table_id=#{genTableId},remarks=#{remarks},del_flag=#{delFlag} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="com.yzit.plateform.entity.GenScheme" >
+	update t_gen_scheme set 
+	<trim  suffixOverrides="," >
+	<if test="name != null  and name != '' ">
+		name=#{name},
+	</if>
+	<if test="category != null  and category != '' ">
+		category=#{category},
+	</if>
+	<if test="packageName != null  and package_name != '' ">
+		package_name=#{packageName},
+	</if>
+	<if test="moduleName != null  and module_name != '' ">
+		module_name=#{moduleName},
+	</if>
+	<if test="subModuleName != null  and sub_module_name != '' ">
+		sub_module_name=#{subModuleName},
+	</if>
+	<if test="functionName != null  and function_name != '' ">
+		function_name=#{functionName},
+	</if>
+	<if test="functionNameSimple != null  and function_name_simple != '' ">
+		function_name_simple=#{functionNameSimple},
+	</if>
+	<if test="functionAuthor != null  and function_author != '' ">
+		function_author=#{functionAuthor},
+	</if>
+	<if test="genTableId != null  and gen_table_id != '' ">
+		gen_table_id=#{genTableId},
+	</if>
+	<if test="remarks != null  and remarks != '' ">
+		remarks=#{remarks},
+	</if>
+	<if test="delFlag != null  and del_flag != '' ">
+		del_flag=#{delFlag},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delById" parameterType="Object">
+	delete 	 from t_gen_scheme where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 数据库 -->
+<select id="findById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	select <include refid="Base_Column_List" /> 
+	 from t_gen_scheme where id = #{id}
+</select>
+
+<!-- 检索所有的记录 -->
+<select id="findAll"  resultMap="BaseResultMap" >
+	select 
+	<include refid="Base_Column_List"/>
+	from t_gen_scheme 
+</select>
+
+<!-- 数据库 列表总数-->
+<select id="findByCount" resultType="java.lang.Integer"  parameterType="com.yzit.plateform.entity.GenScheme">
+	select count(1) from t_gen_scheme 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+  	
+  	<!-- 查询数据库列表  -->
+<select id="findByList" resultMap="BaseResultMap"  parameterType="com.yzit.plateform.entity.GenScheme">
+	select  * from (
+		select * from (
+			select 
+				<include refid="Base_Column_List"/>,rownum rn
+				from t_gen_scheme 
+				<include refid="Example_Where_Clause"/>
+		)aaa where aaa.rn &lt;=#{endIndex}
+	
+	)ccc where ccc.rn >#{startIndex}
+
+</select>
+  	
+</mapper>   

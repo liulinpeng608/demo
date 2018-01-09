@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+<!-- 扫描控制器类 -->
+	<!-- <context:component-scan base-package="com.viathink/**/web/controller/**" /> -->
+ <!-- - 3.扫描Controller -->
+	<context:component-scan base-package="com.yzit.plateform.controller"></context:component-scan>
+
+
+	<!-- 开启注解 -->
+	<!-- <context:annotation-config /> -->
+	<!-- 将需要的处理器     jackson操作  内部都会包含 -->
+  	<!-- 采用注解方式配置MVC -->
+	<mvc:annotation-driven  content-negotiation-manager="contentNegotiationManager">
+	</mvc:annotation-driven>
+	
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+    <property name="favorPathExtension" value="true" />
+    <property name="favorParameter" value="true" />
+    <property name="defaultContentType" value="text/html"/>
+    <property name="mediaTypes" >
+        <value>
+            json=application/json
+            xml=application/xml
+        </value>
+    </property>
+</bean>
+	
+	<!-- 配置静态资源 -->
+<!-- 	<mvc:resources location="/resources/" mapping="/res/**" /> -->
+	
+	
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 上传文件 解析器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>3250585600</value>
+			<!-- 上传文件大小限制为31M，31*1024*1024 -->
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+	<!-- 配置拦截器 -->
+	 <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/*.do"/>
+    		<mvc:mapping path="/*/*.do"/>
+    		<bean class="com.yzit.plateform.interceptor.SessionInterceptor">
+    			<property name="noCheckUrl">
+    				<list>
+    					<value>login.do</value>
+    					<value>doLogin.do</value>
+    				</list>
+    			</property>
+    		</bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
+	<!--  配置统一异常处理 -->
+</beans>
